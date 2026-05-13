@@ -40,6 +40,23 @@ public class InternetHerokuautomationTests extends BaseTest {
 		System.out.println("the heading is correct");
 
 	}
+	@Test(dataProvider="invalidLoginData",dataProviderClass=TestData.class)
+	public void loginFailedTest(String username,String password)
+	{
+		WelcomeToTheInternetPage welcome = new WelcomeToTheInternetPage();
+		String header = welcome.getFormAuthPageTitle("Form Authencation Page title");
+		Assert.assertTrue(header.contains("Welcome to the-internet"));
+		System.out.println("the title is correct");
+		welcome.clickFormAuthentication();
+
+		LoginPagePage login = new LoginPagePage();
+		login.enterUsername(username);
+		login.enterPassword(password);
+		login.clickLoginButton();
+		String actualError = login.getErrorMessage();
+		Assert.assertTrue(actualError.contains("Your password is invalid!") || actualError.contains("Your username is invalid!"));
+		
+	}
 
 	@Test
 	public void dragAndDropTest() {

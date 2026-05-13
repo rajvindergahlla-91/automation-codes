@@ -9,6 +9,7 @@ public class LoginPagePage {
 	private By username = By.id("username");
 	private By password = By.id("password");
 	private By loginButton = By.className("radius");
+	private By error = By.id("flash");
 
 	public void enterUsername(String name) {
 		UTActionsUtils.sendKeys(username, name);
@@ -20,5 +21,9 @@ public class LoginPagePage {
 
 	public void clickLoginButton() {
 		UTActionsUtils.click(loginButton, "Login Button");
+	}
+	public String getErrorMessage()
+	{
+		return UTActionsUtils.getText(error,"Error message");
 	}
 }
